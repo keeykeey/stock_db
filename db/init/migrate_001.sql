@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS prod_cat (
 
 CREATE TABLE IF NOT EXISTS brand (
     code          varchar(5) PRIMARY KEY,
-    co_name       varchar(100) NOT NULL,
-    co_name_en    varchar(100),
+    co_name       varchar(200) NOT NULL,
+    co_name_en    varchar(200),
     sec_17_code   varchar(2) NOT NULL REFERENCES section_17(code),
     sec_33_code   varchar(4) NOT NULL REFERENCES section_33(code),
     scale_cat     integer NOT NULL REFERENCES scale_cat(code),
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS doc_type (
 );
 
 CREATE TABLE IF NOT EXISTS fin_summary (
-    disc_no            bigint PRIMARY KEY,
+    disc_no            varchar(20) PRIMARY KEY,
     disc_date          date NOT NULL,
     code               varchar(5) NOT NULL REFERENCES brand(code),
     doc_type_code      integer NOT NULL REFERENCES doc_type(code),
@@ -181,7 +181,10 @@ INSERT INTO scale_cat (code, label) VALUES
 (2, 'TOPIX Large70'),
 (3, 'TOPIX Mid400'),
 (4, 'TOPIX SMALL'),
-(5, '-')
+(5, 'TOPIX Small 1'),
+(6, 'TOPIX Small 2'),
+(7, 'TOPIX Core30'),
+(10, '-')
 ON CONFLICT (code) DO NOTHING;
 
 INSERT INTO market (code, label) VALUES
