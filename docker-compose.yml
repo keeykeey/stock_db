@@ -4,7 +4,7 @@ services:
     image: postgres
     shm_size: 128mb
     volumes:
-      - ./init:/docker-entrypoint-initdb.d
+      - ./db/init:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     environment:
@@ -12,3 +12,15 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_INITDB_ARGS: ${POSTGRES_INITDB_ARGS}
+
+  batch:
+    container_name: stock_db_batch
+    build:
+      context: ./batch
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+    depends_on:
+      - db
